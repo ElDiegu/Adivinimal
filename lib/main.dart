@@ -1,4 +1,6 @@
+import 'package:adivinimal/widgets/Game.dart';
 import 'package:adivinimal/widgets/MainMenu.dart';
+import 'package:adivinimal/widgets/Settings.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,6 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/mainMenu': (context) => MainMenu(),
+        '/Game': (context) => Game(),
+        '/Settings': (context) => Settings(),
       },
       initialRoute: '/mainMenu',
     );
