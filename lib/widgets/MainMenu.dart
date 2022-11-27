@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:adivinimal/animal_data/animal_compare.dart';
 
 class MainMenu extends StatelessWidget{
   @override
@@ -8,10 +9,10 @@ class MainMenu extends StatelessWidget{
         child: ElevatedButton(
           child: Image(image: AssetImage('assets/boton.png')),
           onPressed: () {
-            Navigator.of(context).pushNamed();
+            //Navigator.of(context).pushNamed();
           }
         )
-      )
+      ),
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:adivinimal/widgets/MainMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:adivinimal/animal_data/animal_compare.dart';
+import 'package:adivinimal/widgets/AnimalPruebas.dart';
+import 'package:adivinimal/widgets/GameScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/mainMenu': (context) => MainMenu(),
+        '/GameSceen': (context) => GameSceen(),
       },
-      initialRoute: '/mainMenu',
+      initialRoute: '/GameSceen',
     );
   }
 }
