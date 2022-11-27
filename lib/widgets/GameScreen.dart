@@ -6,7 +6,7 @@ import "package:unorm_dart/unorm_dart.dart" as unorm;
 import 'package:collection/collection.dart';
 import 'package:adivinimal/animal_data/animal_compare.dart';
 
-class GameSceen extends StatelessWidget{
+class GameScreen extends StatelessWidget{
 
   final animalDatabase = AnimalDataBase();
 
