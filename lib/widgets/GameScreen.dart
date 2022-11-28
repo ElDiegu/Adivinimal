@@ -42,6 +42,12 @@ class _GameScreen extends State<GameScreen>{
                 onPressed: () {
                   if(selectedAnimal == null) return;
                   _key.currentState!.addAnswer(selectedAnimal);
+                  /*Test endgame
+                  showDialog(
+                      context: context,
+                      builder: (context) => EndGame(),
+                  );
+                  Fin Test*/
                 },
                 child: Text('Confirmar animal')
             ),
@@ -82,4 +88,74 @@ class _AnswerListState extends State<AnswerList>{
   }
 
   addAnswer(Animal animal) {answers.add(animal); print('child method'); widget.function();}
+}
+
+class EndGame extends StatelessWidget {
+  const EndGame({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Color.fromARGB(0, 0, 0, 0),
+      content: Container(
+        height: 300,
+        width: 300,
+        decoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/dialogbox.png'),
+            fit: BoxFit.cover,),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 50, 0, 10),
+              child: Text('¡Has acertado el animal!\n     ¿Qué desea hacer?', style: TextStyle(color: Colors.white, fontSize: 20),),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 0, 40),
+                  child: Column(
+                    children: <Widget>[
+                      MaterialButton(
+                        highlightColor: Color.fromARGB(0, 255, 255, 255),
+                        child: const Image(image: AssetImage('assets/volver_menu.png'),
+                          height: 90,
+                          width: 90,),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        }
+                      ),
+                      Text(' Volver\nal Menú', style: TextStyle(color: Colors.white, fontSize: 20),),
+                    ],
+                  )
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 0, 40),
+                  child: Column(
+                    children: <Widget>[
+                      MaterialButton(
+                        highlightColor: Color.fromARGB(0, 255, 255, 255),
+                        child: const Image(image: AssetImage('assets/back_button.png'),
+                          height: 90,
+                          width: 90,),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushNamed('/GameScreen');
+                        }
+                      ),
+                      Text('  Jugar\nOtra Vez', style: TextStyle(color: Colors.white, fontSize: 20),),
+                    ],
+                  )
+                ),
+              ],
+            ),
+          ],
+        )
+      ),
+    );
+  }
 }
