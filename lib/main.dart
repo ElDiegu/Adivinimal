@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/GameSceen': (context) => GameSceen(),
+        '/GameSceen': (context) => GameScreen(),
       },
       initialRoute: '/GameSceen',
     );

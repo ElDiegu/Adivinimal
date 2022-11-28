@@ -37,31 +37,31 @@ class AnimalCompareWidget extends StatelessWidget{
             Text("Entorno"),
             Stack(children: [
               Image(image: images[2]),
-              Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.c3), textAlign: TextAlign.center, textScaleFactor: 1.5,)))
+              Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.c3), textAlign: TextAlign.center, textScaleFactor: 1.2,)))
             ],),
           ],)),
           Expanded(child: Column( children: <Widget>[
             Text("Reino"),
             Stack(children: [
               Image(image: images[0]),
-              Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.c2), textAlign: TextAlign.center, textScaleFactor: 1.5,)))
+              Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.c2), textAlign: TextAlign.center, textScaleFactor: 1.2,)))
             ],),
             Text("Tamaño"),
             Stack(children: [
               Image(image: images[3]),
-              Positioned.fill(bottom: 20,child: Center(child: Text('${animalChosen.c4}cm', textAlign: TextAlign.center, textScaleFactor: 1.5,)))
+              Positioned.fill(bottom: 20,child: Center(child: Text('${animalChosen.c4}cm', textAlign: TextAlign.center, textScaleFactor: 1.2,)))
             ],),
           ],)),
           Expanded(child: Column( children: <Widget>[
             Text("Alimentación"),
             Stack(children: [
               Image(image: images[1]),
-              Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.c3), textAlign: TextAlign.center, textScaleFactor: 1.5,)))
+              Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.c3), textAlign: TextAlign.center, textScaleFactor: 1.2,)))
             ],),
             Text("Reproducción"),
             Stack(children: [
               Image(image: images[4]),
-              Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.c5), textAlign: TextAlign.center, textScaleFactor: 1.5,)))
+              Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.c5), textAlign: TextAlign.center, textScaleFactor: 1.2,)))
             ],),
           ],))
         ],
@@ -82,14 +82,37 @@ class AnimalCompareWidget extends StatelessWidget{
     Function equals = const DeepCollectionEquality.unordered().equals;
     if(equals(originalAnimal, chosenAnimal)) images[index] = AssetImage('assets/verde.png');
   }
-
   void CompareSize(int originalAnimal, int chosenAnimal, int index){
     if(chosenAnimal > (originalAnimal + 75) || chosenAnimal < (originalAnimal-75)) images[index] = AssetImage('assets/naranja.png');
     else if(chosenAnimal == originalAnimal) images[index] = AssetImage('assets/verde.png');
   }
-
   bool HasWord(List<String> comparingList, String comparingWord){
     if(comparingList.contains(comparingWord)) return true;
     return false;
   }
+}
+
+class _AnimalCompareWidget extends StatefulWidget{
+
+  final Animal originalAnimal;
+  final Animal animalChosen;
+
+  _AnimalCompareWidget({super.key, required this.originalAnimal, required this.animalChosen});
+
+  @override
+  State<StatefulWidget> createState() => AnimalCompareWidgetState(originalAnimal: originalAnimal, animalChosen: animalChosen);
+}
+
+class AnimalCompareWidgetState extends State<_AnimalCompareWidget>{
+
+  final Animal originalAnimal;
+  final Animal animalChosen;
+
+  AnimalCompareWidgetState({required this.originalAnimal, required this.animalChosen});
+
+  @override
+  Widget build(BuildContext context){
+    return AnimalCompareWidget(originalAnimal: originalAnimal, animalChosen: animalChosen,).build(context);
+  }
+
 }
