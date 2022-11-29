@@ -48,9 +48,9 @@ class StateSettings extends StatefulWidget{
 }
 
 class SettingsWidget extends State<StateSettings>{
-  bool opcion5 = false;
-  bool opcion7 = true;
-  bool opcion10 = false;
+  static bool opcion5 = false;
+  static bool opcion7 = true;
+  static bool opcion10 = false;
 
   @override
   Widget build(BuildContext context) {
