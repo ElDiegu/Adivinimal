@@ -119,7 +119,6 @@ class SettingsWidget extends State<StateSettings>{
     );
   }
   void getPrefs() async{
-    print('pepe');
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     setState(() {
