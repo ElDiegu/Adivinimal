@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatelessWidget{
-  const MainMenu({super.key});
+  MainMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class MainMenu extends StatelessWidget{
                   child: const Image(image: AssetImage('assets/close.png'),
                     height: 100,
                     width: 100,),
-                  onPressed: () {
+                  onPressed: () async {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(

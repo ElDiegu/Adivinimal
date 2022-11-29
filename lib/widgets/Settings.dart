@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -48,12 +49,14 @@ class StateSettings extends StatefulWidget{
 }
 
 class SettingsWidget extends State<StateSettings>{
+
   static bool opcion5 = false;
   static bool opcion7 = true;
   static bool opcion10 = false;
 
   @override
   Widget build(BuildContext context) {
+    getPrefs();
     return Container(
       child: Column(
         children: [
@@ -67,6 +70,7 @@ class SettingsWidget extends State<StateSettings>{
                         opcion5 = true;
                         opcion7 = false;
                         opcion10 = false;
+                        setPrefs();
                       });
                     }
                 ),
@@ -84,6 +88,7 @@ class SettingsWidget extends State<StateSettings>{
                         opcion7 = true;
                         opcion5 = false;
                         opcion10 = false;
+                        setPrefs();
                       });
                     }
                 ),
@@ -101,6 +106,7 @@ class SettingsWidget extends State<StateSettings>{
                         opcion10 = true;
                         opcion5 = false;
                         opcion7 = false;
+                        setPrefs();
                       });
                     }
                 ),
@@ -111,5 +117,17 @@ class SettingsWidget extends State<StateSettings>{
         ],
       )
     );
+  }
+  void getPrefs() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    opcion5 = (prefs.getBool('opcion5'))!;
+    opcion7 = (prefs.getBool('opcion7'))!;
+    opcion10 = (prefs.getBool('opcion10'))!;
+  }
+  void setPrefs() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('opcion5', opcion5);
+    prefs.setBool('opcion7', opcion7);
+    prefs.setBool('opcion10', opcion10);
   }
 }
