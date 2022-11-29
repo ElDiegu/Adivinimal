@@ -81,9 +81,9 @@ class _GameScreen extends State<GameScreen>{
   addTry() => setState(() => tries++);
 
   int getTries(){
-    if(SettingsWidget.opcion5!) return 5;
-    if(SettingsWidget.opcion7!) return 7;
-    if(SettingsWidget.opcion10!) return 10;
+    if(SettingsWidget.opcion5) return 5;
+    if(SettingsWidget.opcion7) return 7;
+    if(SettingsWidget.opcion10) return 10;
     return 5;
   }
   

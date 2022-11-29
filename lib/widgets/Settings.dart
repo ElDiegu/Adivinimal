@@ -119,10 +119,14 @@ class SettingsWidget extends State<StateSettings>{
     );
   }
   void getPrefs() async{
+    print('pepe');
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    opcion5 = (prefs.getBool('opcion5'))!;
-    opcion7 = (prefs.getBool('opcion7'))!;
-    opcion10 = (prefs.getBool('opcion10'))!;
+
+    setState(() {
+      opcion5 = (prefs.getBool('opcion5'))!;
+      opcion7 = (prefs.getBool('opcion7'))!;
+      opcion10 = (prefs.getBool('opcion10'))!;
+    });
   }
   void setPrefs() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
