@@ -29,7 +29,7 @@ class GameDatabase {
 
   Future _createDB(Database db, int version) async{
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final triesType = 'INTEGER NOT NULL';
+    final triesType = 'TEXT NOT NULL';
     final animalType = 'TEXT NOT NULL';
 
     await db.execute('CREATE TABLE ${gameList} (${GameFields.id} $idType, ${GameFields.tries} $triesType, ${GameFields.animal} $animalType)');
@@ -52,6 +52,7 @@ class GameDatabase {
   Future close() async{
     final db = await instance.database;
     db.delete('$gameList');
+    db.execute('UPDATE sqlite_sequence SET seq = 0');
   }
 }
 
@@ -67,12 +68,12 @@ class GameFields{
 
 class Game{
   final int? id;
-  final int tries;
+  final String tries;
   final String animal;
 
   const Game({this.id, required this.tries, required this.animal});
 
-  Game copy({int? id, int? tries, String? animal}) => Game(id: id ?? this.id, tries: tries ?? this.tries, animal: animal ?? this.animal);
+  Game copy({int? id, String? tries, String? animal}) => Game(id: id ?? this.id, tries: tries ?? this.tries, animal: animal ?? this.animal);
 
   Map<String, Object?> toMap() => {
       GameFields.id : id,
@@ -80,7 +81,7 @@ class Game{
       GameFields.animal : animal
   };
 
-  static Game fromMap(Map<String, Object?> map) => Game(id: map[GameFields.id] as int?, tries: map[GameFields.tries] as int, animal: map[GameFields.animal] as String);
+  static Game fromMap(Map<String, Object?> map) => Game(id: map[GameFields.id] as int?, tries: map[GameFields.tries] as String, animal: map[GameFields.animal] as String);
 
   @override
   String toString(){

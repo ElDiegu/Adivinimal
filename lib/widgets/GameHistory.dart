@@ -18,6 +18,10 @@ class GameHistoryState extends State<GameHistory>{
   Widget build(BuildContext context){
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/fondo.png'),
+          fit: BoxFit.fill),
+        ),
         padding: EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

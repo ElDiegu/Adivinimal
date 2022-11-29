@@ -31,7 +31,7 @@ class AnimalCompareWidget extends StatelessWidget{
           /* First Row */
           Expanded(child: Column( children: <Widget>[
             /*Nombre y foto*/
-            Text(animalChosen.name, textAlign: TextAlign.center,),
+            Text(animalChosen.name, textAlign: TextAlign.center, textScaleFactor: 1,),
             Image(image: animalChosen.image),
             /*Cuarta categoría*/
             Text("Alimentación"),

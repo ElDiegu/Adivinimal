@@ -90,7 +90,7 @@ class AnimalDataBase {
         37);
 
     addAnimal("Frailecillo Atlántico",
-        AssetImage('assets/animales/frailecillo_atlantico.png'),
+        AssetImage('assets/animales/frailecillo.png'),
         ['Ave'],
         ['Ovíparo'],
         ['Carnívoro'],

@@ -8,6 +8,7 @@ class MainMenu extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Container(
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
@@ -83,20 +84,25 @@ class MainMenu extends StatelessWidget{
               ]
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 250),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Image(image: AssetImage('assets/adivinimal.png')),
             ),
-            MaterialButton(
-              highlightColor: Color.fromARGB(0, 255, 255, 255),
-              child: const Image(image: AssetImage('assets/play_button.png')),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/GameScreen');
-              }
-            ),
-            MaterialButton(
-              child: const Text('Historial'),
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => GameHistory())),
-            )
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+              MaterialButton(
+                  highlightColor: Color.fromARGB(0, 255, 255, 255),
+                  child: const Image(width: 300,image: AssetImage('assets/play_button.png')),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/GameScreen');
+                  }
+              ),
+              MaterialButton(
+                highlightColor: Color.fromARGB(0, 255, 255, 255),
+                child: const Image(width: 200,image: AssetImage('assets/historial.png')),
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => GameHistory())),
+              )
+            ],)
           ]
         )
       )

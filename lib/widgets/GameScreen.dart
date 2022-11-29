@@ -28,13 +28,15 @@ class _GameScreen extends State<GameScreen>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      floatingActionButton: MaterialButton(onPressed: Navigator.of(context).pop, child: Image(width: 100, image: AssetImage('assets/back_button.png'),),),
       resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/fondo.png'), fit: BoxFit.fill)),
-        padding: EdgeInsets.all(40),
+        padding: EdgeInsets.all(30),
         child: Column(
           children: <Widget>[
-            Text('Intentos: $tries/$maxTries'),
+            Image(width: 200,image: AssetImage('assets/adivinimal_logo.png')),
+            Text('Intentos: $tries/$maxTries', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
             Autocomplete<Animal>(
                 optionsBuilder: (TextEditingValue textEditingValue) {
                   if(textEditingValue.text.isEmpty) return const Iterable<Animal>.empty();
@@ -47,7 +49,7 @@ class _GameScreen extends State<GameScreen>{
                   FocusManager.instance.primaryFocus?.unfocus();
                 }
             ),
-            ElevatedButton(
+            MaterialButton(
                 onPressed: () {
                   if(selectedAnimal == null) return;
                   FocusManager.instance.primaryFocus?.unfocus();
@@ -58,20 +60,21 @@ class _GameScreen extends State<GameScreen>{
                     print('VICTORIA');
                     showDialog(
                       context: context,
-                      builder: (context) => EndGame(tries: tries, animal: animal, victoria: true),
+                      builder: (context) => EndGame(tries: tries, animal: animal, victoria: true, maxTries: maxTries,),
                     );
                     return;
                   }
                   if(tries == maxTries){
                     showDialog(
                       context: context,
-                      builder: (context) => EndGame(tries: tries, animal: animal, victoria: false),
+                      builder: (context) => EndGame(tries: tries, animal: animal, victoria: false, maxTries: maxTries,),
                     );
                   }
                 },
-                child: Text('Confirmar animal')
+                child: Image(image: AssetImage('assets/confirmar.png'))
             ),
             AnswerList(key: _key,function: addTry, animal: animal,),
+
           ],
         ),
       ),
@@ -134,16 +137,18 @@ class _AnswerListState extends State<AnswerList>{
   }
 
   void _scroll(){
-    _controller.jumpTo(_controller.position.maxScrollExtent);
+    _controller.jumpTo(0.0);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(child: ListView.builder(
+    return Flexible(child: ListView.separated(
+      reverse: true,
       controller: _controller,
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: answers.length,
+      separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) => AnimalCompareWidget(
           originalAnimal: animal,
           animalChosen: answers[index]
@@ -155,15 +160,17 @@ class _AnswerListState extends State<AnswerList>{
 }
 
 class EndGame extends StatelessWidget {
-  EndGame({super.key, required this.animal, required this.tries, required this.victoria});
+  EndGame({super.key, required this.animal, required this.tries, required this.victoria, required this.maxTries});
   final Animal animal;
   final int tries;
+  final int maxTries;
   final bool victoria;
   late String text = getText();
+  late String resultado = victoria ? 'Victoria' : 'Derrota';
 
   String getText(){
     if(victoria) return '¡Has acertado el animal!\n';
-    else return '¡Has perdido! El animal era ${animal.name}';
+    else return '¡Has perdido! El animal era ${animal.name}\n';
   }
 
   @override
@@ -200,7 +207,7 @@ class EndGame extends StatelessWidget {
                           height: 90,
                           width: 90,),
                         onPressed: () {
-                          GameDatabase.instance.create(Game(tries: tries, animal: animal.name));
+                          GameDatabase.instance.create(Game(tries: '${tries}/${maxTries} - ${resultado}', animal: animal.name));
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
                         }
@@ -219,7 +226,7 @@ class EndGame extends StatelessWidget {
                           height: 90,
                           width: 90,),
                         onPressed: () {
-                          GameDatabase.instance.create(Game(tries: tries, animal: animal.name));
+                          GameDatabase.instance.create(Game(tries: '${tries}/${maxTries} - ${resultado}', animal: animal.name));
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
                           Navigator.of(context).pushNamed('/GameScreen');
