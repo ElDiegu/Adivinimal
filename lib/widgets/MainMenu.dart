@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:adivinimal/widgets/GameHistory.dart';
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatelessWidget{
@@ -92,6 +93,10 @@ class MainMenu extends StatelessWidget{
                 Navigator.of(context).pushNamed('/GameScreen');
               }
             ),
+            MaterialButton(
+              child: const Text('Historial'),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => GameHistory())),
+            )
           ]
         )
       )

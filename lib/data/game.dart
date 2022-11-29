@@ -39,6 +39,7 @@ class GameDatabase {
     final db = await instance.database;
     final id = await db.insert(gameList, game.toMap());
     final map = game.toMap();
+    print('${game.copy(id: id)} AÑADIDO');
     return game.copy(id: id);
   }
 
@@ -50,7 +51,7 @@ class GameDatabase {
 
   Future close() async{
     final db = await instance.database;
-    db.close();
+    db.delete('$gameList');
   }
 }
 
