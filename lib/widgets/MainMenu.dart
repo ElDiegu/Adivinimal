@@ -10,6 +10,7 @@ class MainMenu extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Container(
+        padding: EdgeInsets.only(top: 20),
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage('assets/menu_principal_fondo.png'),

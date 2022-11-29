@@ -137,7 +137,7 @@ class _AnswerListState extends State<AnswerList>{
   }
 
   void _scroll(){
-    _controller.jumpTo(0.0);
+    _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
   @override

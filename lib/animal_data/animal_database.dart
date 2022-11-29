@@ -66,7 +66,7 @@ class AnimalDataBase {
         30);
 
     addAnimal("Ganso Blanco",
-        AssetImage('assets/ganso_blanco.png'),
+        AssetImage('assets/animales/ganso_blanco.png'),
         ['Ave'],
         ['Ovíparo'],
         ['Herbívoro'],
@@ -163,7 +163,7 @@ class AnimalDataBase {
         200);
 
     addAnimal("Pez Volador",
-        AssetImage('assets/animales/pez_volador.png'),
+        AssetImage('assets/animales/pez_volador_comun.png'),
         ['Pez'],
         ['Ovíparo'],
         ['Carnívoro'],
@@ -242,7 +242,7 @@ class AnimalDataBase {
         2400);
 
     addAnimal("Murciélago Vampiro",
-        AssetImage('assets/animales/murcielago_vampiro.png'),
+        AssetImage('assets/animales/murcielago.png'),
         ['Mamífero'],
         ['Vivíparo'],
         ['Carnívoro'],
@@ -378,7 +378,7 @@ class AnimalDataBase {
         80);
 
     addAnimal("Cocodrilo",
-        AssetImage('assets/animales/cocrodilo.png'),
+        AssetImage('assets/animales/cocodrilo.png'),
         ['Reptil'],
         ['Ovíparo'],
         ['Carnívoro'],

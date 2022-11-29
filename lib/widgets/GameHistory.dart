@@ -35,8 +35,8 @@ class GameHistoryState extends State<GameHistory>{
                 itemBuilder: (context, index) => GameWidget(game: games[index]),
               )
           ),
-          ElevatedButton(onPressed: closeDatabase, child: Text('Borrar historial')),
-          MaterialButton(onPressed: () => Navigator.of(context).pop(), child: Image(width: 100, height: 100,image: AssetImage('assets/back_button.png')))
+          MaterialButton(onPressed: closeDatabase, child: Image(width: 180,image: AssetImage('assets/borrar.png'),)),
+          MaterialButton(onPressed: () => Navigator.of(context).pop(), child: Image(width: 75,image: AssetImage('assets/back_button.png')))
         ],)
       ),
     );
