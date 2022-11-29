@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:adivinimal/animal_data/animal_database.dart';
 import 'package:adivinimal/animal_data/animal.dart';
@@ -27,7 +28,9 @@ class _GameScreen extends State<GameScreen>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/fondo.png'), fit: BoxFit.fill)),
         padding: EdgeInsets.all(40),
         child: Column(
           children: <Widget>[
@@ -49,7 +52,10 @@ class _GameScreen extends State<GameScreen>{
                   if(selectedAnimal == null) return;
                   FocusManager.instance.primaryFocus?.unfocus();
                   _key.currentState!.addAnswer(selectedAnimal);
-                  if(selectedAnimal == animal){
+                  print('${animal.name}');
+                  print('${selectedAnimal.name}');
+                  if(selectedAnimal.name == animal.name){
+                    print('VICTORIA');
                     showDialog(
                       context: context,
                       builder: (context) => EndGame(tries: tries, animal: animal, victoria: true),
@@ -85,7 +91,7 @@ class _GameScreen extends State<GameScreen>{
     List<Animal> animales = [];
     List<String> entorno = ['tierra', 'agua', 'aire'];
     List<String> reino = ['ave', 'pez', 'mamifero', 'anfibio', 'reptil'];
-    List<String> alimentacion = ['herviboro', 'carnivoro', 'omnivoro'];
+    List<String> alimentacion = ['herbivoro', 'carnivoro', 'omnivoro'];
     List<String> reproduccion = ['viviparo', 'oviparo', 'ovoviviparo'];
 
     String inputText = removeDiacritics(text.toLowerCase());
@@ -121,10 +127,20 @@ class _AnswerListState extends State<AnswerList>{
   late List<Animal> answers = [];
   late Animal animal = widget.animal;
 
+  final ScrollController _controller = new ScrollController();
+
+  void _scrollDown(){
+    Timer(Duration(milliseconds: 50), _scroll);
+  }
+
+  void _scroll(){
+    _controller.jumpTo(_controller.position.maxScrollExtent);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Flexible(child: ListView.builder(
-      reverse: true,
+      controller: _controller,
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: answers.length,
@@ -135,7 +151,7 @@ class _AnswerListState extends State<AnswerList>{
     ));
   }
 
-  addAnswer(Animal animal) {answers.add(animal); print('child method'); widget.function();}
+  addAnswer(Animal animal) {answers.add(animal); print('child method'); widget.function(); _scrollDown();}
 }
 
 class EndGame extends StatelessWidget {
@@ -155,24 +171,27 @@ class EndGame extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Color.fromARGB(0, 0, 0, 0),
       content: Container(
-        height: 300,
-        width: 300,
+        //height: 300,
+        //width: 300,
+        padding: EdgeInsets.all(5),
         decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage('assets/dialogbox.png'),
             fit: BoxFit.cover,),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Wrap(
+          spacing: 50,
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.fromLTRB(0, 50, 0, 10),
-              child: Text('$text¿Qué desea hacer?', style: TextStyle(color: Colors.white, fontSize: 20),),
+              margin: EdgeInsets.fromLTRB(30, 50, 30, 0),
+              child: Text('$text¿Qué desea hacer?', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 0, 40),
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 40),
                   child: Column(
                     children: <Widget>[
                       MaterialButton(
@@ -186,12 +205,12 @@ class EndGame extends StatelessWidget {
                           Navigator.of(context).pop();
                         }
                       ),
-                      Text(' Volver\nal Menú', style: TextStyle(color: Colors.white, fontSize: 20),),
+                      Text('Volver\nal Menú', style: TextStyle(color: Colors.white70, fontSize: 17, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                     ],
                   )
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 0, 40),
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 40),
                   child: Column(
                     children: <Widget>[
                       MaterialButton(
@@ -206,7 +225,7 @@ class EndGame extends StatelessWidget {
                           Navigator.of(context).pushNamed('/GameScreen');
                         }
                       ),
-                      Text('  Jugar\nOtra Vez', style: TextStyle(color: Colors.white, fontSize: 20),),
+                      Text('  Jugar\nOtra Vez', style: TextStyle(color: Colors.white70, fontSize: 17, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                     ],
                   )
                 ),

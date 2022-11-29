@@ -21,7 +21,7 @@ class AnimalCompareWidget extends StatelessWidget{
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/caja.png'),
-          fit: BoxFit.fill,
+          fit: BoxFit.fitWidth,
         )
       ),
       padding: const EdgeInsets.all(15),
@@ -59,8 +59,11 @@ class AnimalCompareWidget extends StatelessWidget{
               Positioned.fill(child: Center(child: Text(animalChosen.ToString(animalChosen.reproduccion), textAlign: TextAlign.center, textScaleFactor: 1.2,)))
             ],),
             Text("Tamaño"),
-            Stack(children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
               Image(image: images[4]),
+              if(sizeImage != null) Container(padding: EdgeInsets.only(bottom: 20),child: Image(height: 85, image: sizeImage!)),
               Positioned.fill(bottom: 20, child: Center(child: Text('${animalChosen.tamanyo}cm', textAlign: TextAlign.center, textScaleFactor: 1.2,)))
             ],),
           ],))
@@ -70,6 +73,7 @@ class AnimalCompareWidget extends StatelessWidget{
   }
 
   List<AssetImage> images = List.filled(5, AssetImage('assets/rojo.png'));
+  AssetImage? sizeImage;
 
   void Compare(List<String> originalAnimal, List<String> chosenAnimal, int index){
 
@@ -84,6 +88,10 @@ class AnimalCompareWidget extends StatelessWidget{
   }
   void CompareSize(int originalAnimal, int chosenAnimal, int index){
     if(chosenAnimal > (originalAnimal + 75) || chosenAnimal < (originalAnimal-75)) images[index] = AssetImage('assets/naranja.png');
+
+    if(chosenAnimal < originalAnimal) sizeImage = AssetImage('assets/mayor.png');
+    else if(chosenAnimal > originalAnimal) sizeImage = AssetImage('assets/menor.png');
+
     else if(chosenAnimal == originalAnimal) images[index] = AssetImage('assets/verde.png');
   }
   bool HasWord(List<String> comparingList, String comparingWord){
